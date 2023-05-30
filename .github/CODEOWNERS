@@ -6,9 +6,3 @@
 # @LeeJMorel will be requested for
 # review when someone opens a pull request.
 *       @LeeJMorel
-
-# In this example, @doctocat owns any files in the build/logs
-# directory at the root of the repository and any of its
-# subdirectories.
-src-tauri/ @neonsigh
-src/ @LeeJMorel
