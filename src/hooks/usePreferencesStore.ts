@@ -33,7 +33,6 @@ export const defaultPreferences: IPreferences = {
   theme: "parchment",
   visibleModules: {
     TutorialModule: true,
-    DiceModule: true,
     BinderModule: true,
   },
   collapsedModules: {},

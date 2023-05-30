@@ -1,6 +1,5 @@
 import DCModule from "./DCModule";
 import IncomeModule from "./IncomeModule";
-import DiceModule from "./DiceModule";
 import NotesModule from "./NotesModule";
 import BinderModule from "./BinderModule";
 import TipModule from "./TipModule";
@@ -13,7 +12,6 @@ export enum Module {
   BinderModule = "BinderModule",
   DCModule = "DCModule",
   IncomeModule = "IncomeModule",
-  DiceModule = "DiceModule",
   NotesModule = "NotesModule",
   ConditionModule = "ConditionModule",
 }
@@ -39,13 +37,6 @@ const Modules: Record<Module, IModule> = {
     label: "Show Beginner Walkthrough",
     ModuleComponent: TutorialModule,
     collapsible: false,
-  },
-  DiceModule: {
-    id: Module.DiceModule,
-    label: "Dice Roller",
-    ModuleComponent: DiceModule,
-    collapsible: false,
-    noOverflow: true,
   },
   NotesModule: {
     id: Module.NotesModule,
@@ -85,7 +76,6 @@ export {
   DCModule,
   ConditionModule,
   IncomeModule,
-  DiceModule,
   NotesModule,
   BinderModule,
   Modules,
