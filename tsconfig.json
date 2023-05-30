@@ -17,6 +17,6 @@
     "noEmit": true,
     "jsx": "react-jsx",
   },
-  "include": ["src", "dice-resources"],
+  "include": ["src"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
