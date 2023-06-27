@@ -116,7 +116,7 @@ export const defaultEquipment: Equipment = ["", 1, "", 0, "0cp", false];
 
 export const defaultPreparedSpellPool: ISpellPool = {
   name: "",
-  magicTradition: MagicTradition.none,
+  magicTradition: MagicTradition.arcane,
   spellcastingType: SpellcastingType.prepared,
   ability: Ability.cha,
   proficiency: 0,
@@ -127,7 +127,7 @@ export const defaultPreparedSpellPool: ISpellPool = {
 
 export const defaultSpontaneousSpellPool: ISpellPool = {
   name: "",
-  magicTradition: MagicTradition.none,
+  magicTradition: MagicTradition.arcane,
   spellcastingType: SpellcastingType.spontaneous,
   ability: Ability.cha,
   proficiency: 0,

@@ -182,7 +182,6 @@ export enum MagicTradition {
   occult = "occult",
   arcane = "arcane",
   divine = "divine",
-  none = "none",
 }
 
 export enum SpellcastingType {

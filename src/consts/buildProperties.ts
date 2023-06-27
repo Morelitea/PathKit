@@ -60,6 +60,7 @@ export const magicTraditions = [
 export const spellcastingTypes = [
   SpellcastingType.prepared,
   SpellcastingType.spontaneous,
+  SpellcastingType.focus,
 ];
 
 interface IProficiency {
