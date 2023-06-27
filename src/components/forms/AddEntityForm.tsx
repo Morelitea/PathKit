@@ -13,6 +13,14 @@ import {
   Spells,
   Features,
 } from "./entityFormChildren";
+import {
+  GeneralPlayer,
+  EquipmentPlayer,
+  ActionsPlayer,
+  AttacksPlayer,
+  SpellsPlayer,
+  FeaturesPlayer,
+} from "./playerFormChildren";
 import entityFormSchema from "../../consts/entityFormSchema";
 import { getPlayerMaxHp } from "../../utilities";
 
@@ -80,6 +88,39 @@ const AddEntityForm: React.FC<IEntityFormProps> = ({
     },
   ];
 
+  const playerTabs = (formProps: FormikProps<PartialEntity>) => [
+    {
+      id: "general",
+      title: "General",
+      content: <GeneralPlayer formProps={formProps} />,
+    },
+    {
+      id: "equipment",
+      title: "Equipment",
+      content: <EquipmentPlayer formProps={formProps} />,
+    },
+    {
+      id: "Actions",
+      title: "Actions",
+      content: <ActionsPlayer formProps={formProps} />,
+    },
+    {
+      id: "Attacks",
+      title: "Attacks",
+      content: <AttacksPlayer formProps={formProps} />,
+    },
+    {
+      id: "Spells",
+      title: "Spells",
+      content: <SpellsPlayer formProps={formProps} />,
+    },
+    {
+      id: "Features",
+      title: "Features",
+      content: <FeaturesPlayer formProps={formProps} />,
+    },
+  ];
+
   const hazardTabs = (formProps: FormikProps<PartialEntity>) => [
     {
       id: "general",
@@ -134,6 +175,8 @@ const AddEntityForm: React.FC<IEntityFormProps> = ({
 
     if (entity.type === "NPC") {
       tabsToRender = npcTabs(props);
+    } else if (entity.type === "Player") {
+      tabsToRender = playerTabs(props);
     } else if (entity.type === "Structure") {
       tabsToRender = structureTabs(props);
     } else if (entity.type === "Hazard") {
