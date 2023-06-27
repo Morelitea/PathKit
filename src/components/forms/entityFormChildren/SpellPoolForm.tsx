@@ -12,6 +12,7 @@ import {
   magicTraditions,
   spellcastingTypes,
   magicTraditionOptions,
+  spellcastingTypeOptions,
 } from "../../../consts";
 import { MagicTradition } from "src/api/model";
 
@@ -42,6 +43,15 @@ const SpellPoolForm: React.FC<IEntityFormChildrenProps> = ({
                         ))}
             </FormField>
         </div>
+        {/* <div className={styles.formRow}>
+          <FormField label="Spellcasting Type" name={`build.spellCasters.${index}.spellcastingType`} as="select">
+          {spellcastingTypeOptions.map((o) => (
+                          <option key={o.tag} value={o.tag}>
+                            {o.tag}
+                          </option>
+                        ))}
+            </FormField>
+        </div> */}
       </CollapsibleHeader>
     </>
   );
