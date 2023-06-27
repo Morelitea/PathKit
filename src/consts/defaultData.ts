@@ -114,10 +114,21 @@ export const defaultTrait: Trait = ["", TraitType.Keyword];
 
 export const defaultEquipment: Equipment = ["", 1, "", 0, "0cp", false];
 
-export const defaultSpellPool: ISpellPool = {
+export const defaultPreparedSpellPool: ISpellPool = {
   name: "",
   magicTradition: MagicTradition.none,
-  spellcastingType: SpellcastingType.focus,
+  spellcastingType: SpellcastingType.prepared,
+  ability: Ability.cha,
+  proficiency: 0,
+  focusPoints: 0,
+  spells: [],
+  perDay: [],
+};
+
+export const defaultSpontaneousSpellPool: ISpellPool = {
+  name: "",
+  magicTradition: MagicTradition.none,
+  spellcastingType: SpellcastingType.spontaneous,
   ability: Ability.cha,
   proficiency: 0,
   focusPoints: 0,
