@@ -23,6 +23,7 @@ import {
 } from "./playerFormChildren";
 import entityFormSchema from "../../consts/entityFormSchema";
 import { getPlayerMaxHp } from "../../utilities";
+import playerFormSchema from "../../consts/playerFormSchema";
 
 export interface IEntityFormProps {
   entityData: PartialEntity;
@@ -196,7 +197,9 @@ const AddEntityForm: React.FC<IEntityFormProps> = ({
         //handleAddEntity
         onAddEntity(values);
       }}
-      validationSchema={entityFormSchema}
+      validationSchema={
+        entity.type === EntityType.Player ? playerFormSchema : entityFormSchema
+      }
     >
       {(props) => {
         setTimeout(() => {
