@@ -108,7 +108,7 @@ export const defaultFeat: Feat = ["", "", "", 1, ""];
 
 export const defaultTrait: Trait = ["", TraitType.Keyword];
 
-export const defaultEquipment: Equipment = ["", 1, 0, "0cp", false];
+export const defaultEquipment: Equipment = ["", 1, "", 0, "0cp", false];
 
 export const defaultAction: IAction = {
   actionNumber: 0,

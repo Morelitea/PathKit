@@ -171,6 +171,7 @@ export type Trait = [name: string, tag?: TraitType];
 export type Equipment = [
   name: string,
   quantity: number,
+  containerID?: string,
   bulk?: number,
   value?: string,
   worn?: boolean

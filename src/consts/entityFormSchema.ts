@@ -164,6 +164,7 @@ const entityFormSchema: ObjectSchema<PartialEntity> = object({
         tuple([
           string().required(),
           number().required().default(1),
+          string().optional().default(""),
           number().optional().default(0),
           string().optional().default("0cp"),
           boolean().optional().default(false),
