@@ -1,4 +1,4 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useCallback, SetStateAction } from "react";
 import { Routes, Route, useLocation } from "react-router-dom";
 import { library } from "@fortawesome/fontawesome-svg-core";
 import { fas } from "@fortawesome/free-solid-svg-icons";
@@ -18,7 +18,7 @@ import {
   useBoolean,
 } from "./hooks";
 import { WelcomeMenu } from "./components/menus/WelcomeMenu";
-import { RoundButton } from "./components/buttons";
+import { Button, RoundButton } from "./components/buttons";
 import { InitiativeMenu } from "./components/menus/InitiativeMenu";
 import Search from "./components/search/Search";
 import EntitySheet from "./components/sheets/EntitySheet";
@@ -35,6 +35,12 @@ library.add(fas);
 export enum AppMode {
   exploration = "exploration",
   encounter = "encounter",
+}
+
+export enum MobileView {
+  card = "card",
+  sheet = "sheet",
+  module = "module",
 }
 
 function App() {
@@ -117,84 +123,233 @@ function App() {
     }
   }, [preferences.theme]);
 
-  return (
-    // Main container for the app
-    <div
-      className={classNames(
-        styles.app,
-        preferences.largeFont && styles.largeFont,
-        styles[preferences.theme]
-      )}
-    >
-      {!currentCampaignId && <WelcomeMenu />}
-      <header className={styles.header}>
-        <div className={styles.headerSection}>
-          {/* Header over cards view, button pulls up create menu*/}
-          <RoundButton icon="file-circle-plus" onClick={handleToggleCreate} />
-          {/* Render MainMenu component */}
-          {/* <div className={styles.dropdown}> */}
-          <CreationDropdown
-            isOpen={createDropdown}
-            onClose={handleToggleCreate}
-          ></CreationDropdown>
-          {/* </div> */}
-          {/* <PathPlannerDropdown onClose={() => setCreateDropdown(false)} /> */}
-          {/* if in encounter mode, show a close button to exit it*/}
-          {preferences.selectedPath !== "" ? (
-            <>
-              {showInitiativeMenu && currentPath?.type === "encounter" && (
-                <InitiativeMenu onClose={handleInitiativeMenu} />
-              )}
-              <h2 className={styles.headerTitle}>
-                {/*capitalize the Header Title*/}
-                {currentPath?.type &&
-                  currentPath.type.charAt(0).toUpperCase() +
-                    currentPath.type.slice(1)}
-              </h2>
-              <RoundButton icon="close" onClick={cancelPath} />
-            </>
-          ) : (
-            // Empty div for layout
-            <div className={styles.spacer} />
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); // Adjust the breakpoint as needed
+    };
+
+    // Initial check on component mount
+    handleResize();
+
+    // Event listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup the event listener on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  const [mobileView, setMobileView] = useState(MobileView.card);
+
+  const handleMobileView = (view: SetStateAction<MobileView>) => {
+    setMobileView(view);
+  };
+
+  // Render different views based on screen size
+  if (isMobile) {
+    return (
+      // Main container for the app
+      <div
+        className={classNames(
+          styles.app,
+          preferences.largeFont && styles.largeFont,
+          styles[preferences.theme]
+        )}
+      >
+        {!currentCampaignId && <WelcomeMenu />}
+        <header className={styles.header}>
+          <div className={styles.mobileHeader}>
+            {/* Header over cards view, button pulls up create menu*/}
+            <RoundButton icon="file-circle-plus" onClick={handleToggleCreate} />
+            {/* Render MainMenu component */}
+            {/* <div className={styles.dropdown}> */}
+            <CreationDropdown
+              isOpen={createDropdown}
+              onClose={handleToggleCreate}
+            ></CreationDropdown>
+            <Search></Search>
+            {/* Hamburger menu icon */}
+            <RoundButton icon="bars" onClick={handleToggleMenu} />
+            {/* Render MainMenu component */}
+            {menu && <MainMenu onClose={() => setMenu(false)} />}
+          </div>
+        </header>
+
+        {/* if in encounter mode, show a close button to exit it*/}
+        {preferences.selectedPath !== "" && mobileView === MobileView.card && (
+          <header className={styles.pathHeader}>
+            {showInitiativeMenu && currentPath?.type === "encounter" && (
+              <InitiativeMenu onClose={handleInitiativeMenu} />
+            )}
+            <h2 className={styles.headerTitle}>
+              {/* capitalize the Header Title */}
+              {currentPath?.type &&
+                currentPath.type.charAt(0).toUpperCase() +
+                  currentPath.type.slice(1)}
+            </h2>
+            <Button
+              onClick={cancelPath}
+              icon="close"
+              variant="text"
+              className={styles.removeButton}
+            />
+          </header>
+        )}
+
+        <main className={styles.content}>
+          {/* Content component for the first column holds PathPlanner
+      which then tells the header what mode we are in. */}
+          {mobileView === MobileView.card && <CardView />}
+
+          {/* Content component for the second column will change if
+      header search component is used to show results*/}
+          {mobileView === MobileView.sheet && (
+            <Routes>
+              <Route path="/" element={<SheetView />}>
+                <Route index element={<NotesSheet />} />
+                <Route path="entity/:entityId" element={<EntitySheet />} />
+                <Route
+                  path="entity/:entityId/edit"
+                  element={<EditEntitySheet />}
+                />
+                <Route path="path/:pathId/*" element={<EditPathSheet />}>
+                  {/* <Route path=":entityId/edit" element={<EditEntitySheet />} /> */}
+                </Route>
+                <Route path="license" element={<LicenseSheet />} />
+                <Route path="*" element={<NotesSheet />} />
+              </Route>
+            </Routes>
           )}
-        </div>
-        <div className={styles.headerSection}>
-          {/* Header over sheets view, runs our search*/}
-          <Search></Search>
-        </div>
-        <div className={styles.headerSection}>
-          <div className={styles.spacer}></div>
-          {/* Header over module view, dynamic title with menu button*/}
-          <h2 className={styles.headerTitle}>Modules</h2>
-          {/* Hamburger menu icon */}
-          <RoundButton icon="bars" onClick={handleToggleMenu} />
-          {/* Render MainMenu component */}
-          {menu && <MainMenu onClose={() => setMenu(false)} />}
-        </div>
-      </header>
-      <main className={styles.content}>
-        {/* Content component for the first column holds PathPlanner
+
+          {/* Content component for the third column will change based on header values*/}
+          {mobileView === MobileView.module && <ModuleView />}
+        </main>
+        <footer className={styles.footer}>
+          {/* Path view */}
+          <div className={styles.footerSection}>
+            <Button
+              onClick={() => handleMobileView(MobileView.card)}
+              variant="text"
+              className={styles.removeButton}
+            >
+              Cards
+            </Button>
+          </div>
+          {/* Path view */}
+          <div className={styles.footerSection}>
+            <Button
+              onClick={() => handleMobileView(MobileView.sheet)}
+              variant="text"
+              className={styles.removeButton}
+            >
+              Sheets
+            </Button>
+          </div>
+          {/* Path view */}
+          <div className={styles.footerSection}>
+            <Button
+              onClick={() => handleMobileView(MobileView.module)}
+              variant="text"
+              className={styles.removeButton}
+            >
+              Modules
+            </Button>
+          </div>
+        </footer>
+      </div>
+    );
+  } else {
+    return (
+      // Main container for the app
+      <div
+        className={classNames(
+          styles.app,
+          preferences.largeFont && styles.largeFont,
+          styles[preferences.theme]
+        )}
+      >
+        {!currentCampaignId && <WelcomeMenu />}
+        <header className={styles.header}>
+          <div className={styles.headerSection}>
+            {/* Header over cards view, button pulls up create menu*/}
+            <RoundButton icon="file-circle-plus" onClick={handleToggleCreate} />
+            {/* Render MainMenu component */}
+            {/* <div className={styles.dropdown}> */}
+            <CreationDropdown
+              isOpen={createDropdown}
+              onClose={handleToggleCreate}
+            ></CreationDropdown>
+            {/* </div> */}
+            {/* <PathPlannerDropdown onClose={() => setCreateDropdown(false)} /> */}
+            {/* if in encounter mode, show a close button to exit it*/}
+            {preferences.selectedPath !== "" ? (
+              <>
+                {showInitiativeMenu && currentPath?.type === "encounter" && (
+                  <InitiativeMenu onClose={handleInitiativeMenu} />
+                )}
+                <h2 className={styles.headerTitle}>
+                  {/*capitalize the Header Title*/}
+                  {currentPath?.type &&
+                    currentPath.type.charAt(0).toUpperCase() +
+                      currentPath.type.slice(1)}
+                </h2>
+                <RoundButton icon="close" onClick={cancelPath} />
+              </>
+            ) : (
+              // Empty div for layout
+              <>
+                <h2 className={styles.headerTitle}>
+                  {/*capitalize the Header Title*/}
+                  No Path Selected
+                </h2>
+                <div className={styles.spacer} />
+              </>
+            )}
+          </div>
+          <div className={styles.headerSection}>
+            {/* Header over sheets view, runs our search*/}
+            <Search></Search>
+          </div>
+          <div className={styles.headerSection}>
+            <div className={styles.spacer}></div>
+            {/* Header over module view, dynamic title with menu button*/}
+            <h2 className={styles.headerTitle}>Modules</h2>
+            {/* Hamburger menu icon */}
+            <RoundButton icon="bars" onClick={handleToggleMenu} />
+            {/* Render MainMenu component */}
+            {menu && <MainMenu onClose={() => setMenu(false)} />}
+          </div>
+        </header>
+        <main className={styles.content}>
+          {/* Content component for the first column holds PathPlanner
             which then tells the header what mode we are in. */}
-        <CardView />
-        {/* Content component for the second column will change if
+          <CardView />
+          {/* Content component for the second column will change if
             header search component is used to show results*/}
-        <Routes>
-          <Route path="/" element={<SheetView />}>
-            <Route index element={<NotesSheet />} />
-            <Route path="entity/:entityId" element={<EntitySheet />} />
-            <Route path="entity/:entityId/edit" element={<EditEntitySheet />} />
-            <Route path="path/:pathId/*" element={<EditPathSheet />}>
-              {/* <Route path=":entityId/edit" element={<EditEntitySheet />} /> */}
+          <Routes>
+            <Route path="/" element={<SheetView />}>
+              <Route index element={<NotesSheet />} />
+              <Route path="entity/:entityId" element={<EntitySheet />} />
+              <Route
+                path="entity/:entityId/edit"
+                element={<EditEntitySheet />}
+              />
+              <Route path="path/:pathId/*" element={<EditPathSheet />}>
+                {/* <Route path=":entityId/edit" element={<EditEntitySheet />} /> */}
+              </Route>
+              <Route path="license" element={<LicenseSheet />} />
+              <Route path="*" element={<NotesSheet />} />
             </Route>
-            <Route path="license" element={<LicenseSheet />} />
-            <Route path="*" element={<NotesSheet />} />
-          </Route>
-        </Routes>
-        {/* Content component for the third column will change based on header values*/}
-        <ModuleView />
-      </main>
-    </div>
-  );
+          </Routes>
+          {/* Content component for the third column will change based on header values*/}
+          <ModuleView />
+        </main>
+      </div>
+    );
+  }
 }
 
 export default App;

@@ -107,6 +107,49 @@ This consists of two main objects, the header and the content*/
       }
     }
   }
+
+  .mobileHeader {
+    padding: 0.5em;
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+
+    /* If a button exists to one side, we place a spacer to ensure the title is centered*/
+    .spacer {
+      width: $headerButtonWidth;
+    }
+
+    .searchBar {
+      width: 100%;
+      height: 100%;
+      background-color: var(--secondaryBackground);
+
+      &::placeholder {
+        color: var(--secondaryText);
+      }
+    }
+  }
+}
+
+.pathHeader {
+  flex-direction: row;
+  cursor: pointer;
+  border-bottom: 1px solid var(--accentBackground);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.5em;
+  width: 100%;
+
+  .headerTitle {
+    margin: 0.2em auto;
+  }
+
+  .removeButton {
+    padding: 0.25em;
+  }
 }
 
 /* The app content is shown underneath the header */
@@ -116,4 +159,26 @@ This consists of two main objects, the header and the content*/
   flex-direction: row;
   align-items: stretch;
   flex-wrap: nowrap;
+}
+
+/* if in mobile view, we also have a footer */
+/* At the top of the app is a header */
+.footer {
+  position: fixed;
+  bottom: 0;
+  height: $footerHeight; /* Set height of footer to match header */
+  width: 100%; /* Set width of footer to 100% to take up the full width of its column */
+  background-color: var(--accentBackground);
+  color: var(--accentText);
+  flex-direction: row;
+  display: flex;
+
+  .footerSection {
+    padding: 0.5em;
+    flex: 1 1 33%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 100%;
+  }
 }
