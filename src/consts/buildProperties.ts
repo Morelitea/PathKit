@@ -50,11 +50,22 @@ export const abilityOptions: AbilityOption[] = [
   { value: Ability.cha, label: AbilityLong.cha },
 ];
 
+interface MagicTraditionOption {
+  tag: MagicTradition;
+}
+
 export const magicTraditions = [
   MagicTradition.arcane,
   MagicTradition.divine,
   MagicTradition.occult,
   MagicTradition.primal,
+];
+
+export const magicTraditionOptions: MagicTraditionOption[] = [
+  { tag: MagicTradition.arcane },
+  { tag: MagicTradition.divine },
+  { tag: MagicTradition.occult },
+  { tag: MagicTradition.primal },
 ];
 
 export const spellcastingTypes = [
