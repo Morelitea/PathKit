@@ -831,7 +831,7 @@ export interface IEntityBuild {
   weapons: IEquipable[];
   money: IMoney;
   armor: IEquipable[];
-  focus: IFocus;
+  focus: IFocusPool;
   spellCasters: ISpellPool[];
   formula: any[];
   pets: string[];
@@ -948,19 +948,19 @@ export enum SpellcastingType {
   prepared = "prepared",
 }
 &nbsp;
-export interface IFocus {
+export interface IFocusPool {
   focusPoints?: number;
-  [MagicTradition.arcane]?: TFocusSpellPool;
-  [MagicTradition.divine]?: TFocusSpellPool;
-  [MagicTradition.primal]?: TFocusSpellPool;
-  [MagicTradition.occult]?: TFocusSpellPool;
+  [MagicTradition.arcane]?: TFocusSpells;
+  [MagicTradition.divine]?: TFocusSpells;
+  [MagicTradition.primal]?: TFocusSpells;
+  [MagicTradition.occult]?: TFocusSpells;
 }
 &nbsp;
-export type TFocusSpellPool = {
-  [key in Ability]?: IFocusSpell;
+export type TFocusSpells = {
+  [key in Ability]?: IFocusSpellList;
 };
 &nbsp;
-export interface IFocusSpell {
+export interface IFocusSpellList {
   abilityBonus?: number;
   proficiency?: number;
   itemBonus?: number;
