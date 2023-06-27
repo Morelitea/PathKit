@@ -4,7 +4,16 @@ import { IEntityFormChildrenProps } from "../AddEntityForm";
 import FormField from "../../formFields/FormField";
 import FormButton from "../../formFields/FormButton";
 import styles from "../Form.module.scss";
-import { defaultTrait, traitOptions } from "../../../consts";
+import {
+  abilityOptions,
+  defaultTrait,
+  profLevelOptions,
+  traitOptions,
+  magicTraditions,
+  spellcastingTypes,
+  magicTraditionOptions,
+} from "../../../consts";
+import { MagicTradition } from "src/api/model";
 
 const SpellPoolForm: React.FC<IEntityFormChildrenProps> = ({
   formProps,
@@ -23,6 +32,15 @@ const SpellPoolForm: React.FC<IEntityFormChildrenProps> = ({
       >
         <div className={styles.formRow}>
           <FormField label="Name" name={`build.spellCasters.${index}.name`} />
+        </div>
+        <div className={styles.formRow}>
+          <FormField label="Magic Tradition" name={`build.spellCasters.${index}.magicTradition`} as="select">
+          {magicTraditionOptions.map((o) => (
+                          <option key={o.tag} value={o.tag}>
+                            {o.tag}
+                          </option>
+                        ))}
+            </FormField>
         </div>
       </CollapsibleHeader>
     </>
