@@ -35,7 +35,7 @@ const EntitySpellsForm: React.FC<IEntityFormChildrenProps> = ({
                   icon="circle-plus"
                   onClick={() => push(defaultSpellPool)}
                 >
-                  Add a focus spell pool
+                  Add a spell pool
                 </FormButton>
               </div>
             </>
