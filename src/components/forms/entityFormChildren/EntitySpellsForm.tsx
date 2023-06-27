@@ -9,6 +9,7 @@ import FormButton from "../../formFields/FormButton";
 import {
   defaultPreparedSpellPool,
   defaultSpontaneousSpellPool,
+  defaultFocusSpellPool,
 } from "../../../consts";
 import SpellPoolForm from "./SpellPoolForm";
 import FocusPoolForm from "./SpellPoolForm.Focus";
@@ -30,7 +31,7 @@ const EntitySpellsForm: React.FC<IEntityFormChildrenProps> = ({
   return (
     <>
       <CollapsibleHeader title="Focus Spell Pools" toggle nested>
-        {/* <FieldArray name="build.focus">
+        <FieldArray name="build.focus">
           {({ remove, push }) => (
             <>
               <div className={styles.formRow}>
@@ -46,14 +47,14 @@ const EntitySpellsForm: React.FC<IEntityFormChildrenProps> = ({
                 <FormButton
                   variant="subtle"
                   icon="circle-plus"
-                  onClick={() => push(defaultSpellPool)}
+                  onClick={() => push(defaultFocusSpellPool)}
                 >
                   Add a focus spell pool
                 </FormButton>
               </div>
             </>
           )}
-        </FieldArray> */}
+        </FieldArray>
       </CollapsibleHeader>
       <CollapsibleHeader title="Prepared Spell Pools" toggle nested>
         <FieldArray name="build.spellCasters">

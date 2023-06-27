@@ -181,23 +181,20 @@ const entityFormSchema: ObjectSchema<PartialEntity> = object({
       .default({}),
     weapons: equipable.default([]),
     armor: equipable.default([]),
-    focus: object()
-      .shape({
-        focusPoints: number().default(0),
-        primal: object()
-          .shape({
-            cha: object()
-              .shape({
-                abilityBonus: number(),
-                proficiency: number(),
-                itemBonus: number(),
-                focusSpell: array().of(string()),
-              })
-              .default({}),
+    focusPoints: number()
+      .default(0)
+      .min(0)
+      .max(3, "Cannot have more than 3 focus points."),
+    focus: object({
+      focusPoints: number().default(0).min(0).max(3, "Cannot have more than 3 focus points"),
+      FocusSpells: array()
+        .of(
+          object({
+            magicTradition: string().oneOf(magicTraditions),
           })
-          .default({}),
-      })
-      .default({}),
+        )
+        .default([]),
+    }),
     spellCasters: array()
       .of(
         object({

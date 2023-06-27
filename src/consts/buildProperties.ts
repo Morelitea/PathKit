@@ -68,10 +68,20 @@ export const magicTraditionOptions: MagicTraditionOption[] = [
   { tag: MagicTradition.primal },
 ];
 
+interface SpellcastingTypeOptions {
+  tag: SpellcastingType;
+}
+
 export const spellcastingTypes = [
+  SpellcastingType.focus,
   SpellcastingType.prepared,
   SpellcastingType.spontaneous,
-  SpellcastingType.focus,
+];
+
+export const spellcastingTypeOptions: SpellcastingTypeOptions[] = [
+  { tag: SpellcastingType.focus },
+  { tag: SpellcastingType.prepared },
+  { tag: SpellcastingType.spontaneous },
 ];
 
 interface IProficiency {
