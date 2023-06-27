@@ -4,6 +4,9 @@ import {
   Equipment,
   Feat,
   IAction,
+  IFocusPool,
+  TFocusSpells,
+  IFocusSpellList,
   IFreeAction,
   IMelee,
   IPassiveAction,
@@ -85,6 +88,7 @@ export const defaultEntity: PartialEntity = {
     money: {},
     weapons: [],
     armor: [],
+    focusPoints: 0,
     focus: {},
     spellCasters: [],
     formula: [],
@@ -113,6 +117,14 @@ export const defaultFeat: Feat = ["", "", "", 1, ""];
 export const defaultTrait: Trait = ["", TraitType.Keyword];
 
 export const defaultEquipment: Equipment = ["", 1, "", 0, "0cp", false];
+
+export const defaultFocusSpellPool: IFocusPool = {
+  focusPoints: 0,
+  arcane: {},
+  divine: {},
+  occult: {},
+  primal: {},
+}
 
 export const defaultPreparedSpellPool: ISpellPool = {
   name: "",
