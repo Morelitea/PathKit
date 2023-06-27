@@ -1,30 +1,47 @@
-import { useState } from "react";
-import { PartialEntity } from "src/api/model";
+import { Field, FieldArray } from "formik";
+import { PartialEntity } from "../../../api/model";
 import styles from "../Form.module.scss";
 import CollapsibleHeader from "../../headers/CollapsibleHeader";
-import { Button } from "../../buttons";
-import SpellPoolForm from "./SpellPoolForm";
 import { IEntityFormChildrenProps } from "../AddEntityForm";
+import { useState } from "react";
+import { Button } from "../../buttons";
+import FormButton from "../../formFields/FormButton";
+import { defaultSpellPool } from "../../../consts";
+import SpellPoolForm from "./SpellPoolForm";
 
 const EntitySpellsForm: React.FC<IEntityFormChildrenProps> = ({
   formProps,
 }) => {
-  const [spellPools, setSpellPools] = useState<number[]>([]);
-
-  const handleAddSpellPool = () => {
-    setSpellPools([...spellPools, spellPools.length + 1]);
-  };
+  const { values } = formProps;
 
   return (
     <>
-      <div className={styles.formCentered}>
-        <Button className={styles.formButton} onClick={handleAddSpellPool}>
-          Add a Spell Pool
-        </Button>
-      </div>
-      {spellPools.map((_, index) => (
-        <SpellPoolForm formProps={formProps} key={index} index={index + 1} />
-      ))}
+      <CollapsibleHeader title="Spell Pools" toggle nested>
+        <FieldArray name="build.spellCasters">
+          {({ remove, push }) => (
+            <>
+              <div className={styles.formRow}>
+                {values.build.spellCasters.map((_, i) => (
+                  <SpellPoolForm
+                    formProps={formProps}
+                    index={i}
+                    onRemove={() => remove(i)}
+                  />
+                ))}
+              </div>
+              <div className={styles.formRow}>
+                <FormButton
+                  variant="subtle"
+                  icon="circle-plus"
+                  onClick={() => push(defaultSpellPool)}
+                >
+                  Add a focus spell pool
+                </FormButton>
+              </div>
+            </>
+          )}
+        </FieldArray>
+      </CollapsibleHeader>
     </>
   );
 };

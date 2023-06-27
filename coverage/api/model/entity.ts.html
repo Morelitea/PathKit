@@ -832,7 +832,7 @@ export interface IEntityBuild {
   money: IMoney;
   armor: IEquipable[];
   focus: IFocus;
-  spellCasters: ISpellCaster[];
+  spellCasters: ISpellPool[];
   formula: any[];
   pets: string[];
   acTotal: IACTotal;
@@ -981,7 +981,7 @@ export interface ISpecificProficiencies {
   legendary?: any[];
 }
 &nbsp;
-export interface ISpellCaster {
+export interface ISpellPool {
   name?: string;
   magicTradition?: MagicTradition;
   spellcastingType?: SpellcastingType;

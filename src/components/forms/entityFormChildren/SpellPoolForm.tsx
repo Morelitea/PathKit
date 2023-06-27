@@ -1,73 +1,29 @@
-import { Field } from "formik";
-import { PartialEntity } from "src/api/model";
-import styles from "../Form.module.scss";
+import { FieldArray } from "formik";
 import CollapsibleHeader from "../../headers/CollapsibleHeader";
-import AddSpellForm from "./AddSpellForm";
-import { useState } from "react";
-import { Button } from "../../buttons";
 import { IEntityFormChildrenProps } from "../AddEntityForm";
+import FormField from "../../formFields/FormField";
+import FormButton from "../../formFields/FormButton";
+import styles from "../Form.module.scss";
+import { defaultTrait, traitOptions } from "../../../consts";
 
 const SpellPoolForm: React.FC<IEntityFormChildrenProps> = ({
   formProps,
-  index: count,
+  index = 0,
+  onRemove,
 }) => {
-  const [spells, setSpells] = useState<number[]>([]);
-
-  const handleAddSpell = () => {
-    setSpells([...spells, spells.length + 1]);
-  };
-
+  const { values } = formProps;
   return (
     <>
-      <CollapsibleHeader title={`Spell Pool ${count}`} toggle>
-        <br />
+      <CollapsibleHeader
+        title={`Spell Pool ${index + 1}`}
+        toggle
+        onRemove={onRemove}
+        as="h4"
+        nested
+      >
         <div className={styles.formRow}>
-          {/*multiple melee's may exist in one entity.*/}
-          <p className={styles.formLabel}>Tradition:</p>
-          <Field
-            name="build.level"
-            type="number"
-            className={styles.formInput}
-          />
-          <p className={styles.formLabel}>Casting Type:</p>
-          <Field
-            name="build.level"
-            type="number"
-            className={styles.formInput}
-          />
+          <FormField label="Name" name={`build.spellCasters.${index}.name`} />
         </div>
-        <div className={styles.formRow}>
-          {/*multiple melee's may exist in one entity. may have multiple traits.*/}
-          <p className={styles.formLabel}>DC:</p>
-          <Field
-            name="build.level"
-            type="number"
-            className={styles.formInput}
-          />
-          <p className={styles.formLabel}>Attack:</p>
-          <Field
-            name="build.level"
-            type="number"
-            className={styles.formInput}
-          />
-        </div>
-        <div className={styles.formRow}>
-          {/*multiple melee's may exist in one entity. may have multiple traits.*/}
-          <p className={styles.formLabel}>Spells:</p>
-          <Field
-            name="build.level"
-            type="number"
-            className={styles.formInput}
-          />
-        </div>
-        <div className={styles.formCentered}>
-          <Button className={styles.formButton} onClick={handleAddSpell}>
-            Add a Spell
-          </Button>
-        </div>
-        {spells.map((_, index) => (
-          <AddSpellForm formProps={formProps} key={index} index={index + 1} />
-        ))}
       </CollapsibleHeader>
     </>
   );

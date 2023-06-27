@@ -72,7 +72,6 @@ const AddEntityForm: React.FC<IEntityFormProps> = ({
       id: "Spells",
       title: "Spells",
       content: <Spells formProps={formProps} />,
-      disabled: true,
     },
     {
       id: "Features",
@@ -109,7 +108,6 @@ const AddEntityForm: React.FC<IEntityFormProps> = ({
       id: "Spells",
       title: "Spells",
       content: <Spells formProps={formProps} />,
-      disabled: true,
     },
     {
       id: "Features",
@@ -179,9 +177,9 @@ const AddEntityForm: React.FC<IEntityFormProps> = ({
                 Save {entity.type}
               </Button>
             </div>
-            {/* <div>
-              <pre>{JSON.stringify(props.errors, null, 2)}</pre>
-            </div> */}
+            <div>
+              <pre>{JSON.stringify(props.values, null, 2)}</pre>
+            </div>
           </Form>
         );
       }}

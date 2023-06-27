@@ -1,4 +1,5 @@
 import {
+  Ability,
   EntityType,
   Equipment,
   Feat,
@@ -8,9 +9,12 @@ import {
   IPassiveAction,
   IRanged,
   IReaction,
+  ISpellPool,
+  MagicTradition,
   PartialEntity,
   PartialPath,
   PathType,
+  SpellcastingType,
   Trait,
   TraitType,
 } from "../api/model";
@@ -109,6 +113,17 @@ export const defaultFeat: Feat = ["", "", "", 1, ""];
 export const defaultTrait: Trait = ["", TraitType.Keyword];
 
 export const defaultEquipment: Equipment = ["", 1, "", 0, "0cp", false];
+
+export const defaultSpellPool: ISpellPool = {
+  name: "",
+  magicTradition: MagicTradition.none,
+  spellcastingType: SpellcastingType.focus,
+  ability: Ability.cha,
+  proficiency: 0,
+  focusPoints: 0,
+  spells: [],
+  perDay: [],
+};
 
 export const defaultAction: IAction = {
   actionNumber: 0,

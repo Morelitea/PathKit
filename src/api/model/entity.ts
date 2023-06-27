@@ -73,7 +73,7 @@ export interface IEntityBuild {
   money: IMoney;
   armor: IEquipable[];
   focus: IFocus;
-  spellCasters: ISpellCaster[];
+  spellCasters: ISpellPool[];
   formula: any[];
   pets: string[];
   acTotal: IACTotal;
@@ -182,11 +182,13 @@ export enum MagicTradition {
   occult = "occult",
   arcane = "arcane",
   divine = "divine",
+  none = "none",
 }
 
 export enum SpellcastingType {
   spontaneous = "spontaneous",
   prepared = "prepared",
+  focus = "focus",
 }
 
 export interface IFocus {
@@ -223,7 +225,7 @@ export interface ISpecificProficiencies {
   legendary?: any[];
 }
 
-export interface ISpellCaster {
+export interface ISpellPool {
   name?: string;
   magicTradition?: MagicTradition;
   spellcastingType?: SpellcastingType;
