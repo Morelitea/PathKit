@@ -32,7 +32,7 @@ interface AbilityOption {
   label: AbilityLong;
 }
 
-export const abilities = [
+export const abilities: Ability[] = [
   Ability.cha,
   Ability.con,
   Ability.dex,
@@ -54,7 +54,7 @@ interface MagicTraditionOption {
   tag: MagicTradition;
 }
 
-export const magicTraditions = [
+export const magicTraditions: MagicTradition[] = [
   MagicTradition.arcane,
   MagicTradition.divine,
   MagicTradition.occult,

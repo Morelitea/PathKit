@@ -31,11 +31,11 @@ const EntitySpellsForm: React.FC<IEntityFormChildrenProps> = ({
   return (
     <>
       <CollapsibleHeader title="Focus Spell Pools" toggle nested>
-        {/* <FieldArray name="build.focus">
+      <FieldArray name="build.focus">
           {({ remove, push }) => (
             <>
               <div className={styles.formRow}>
-                {values.build.focus.map((_, i) => (
+                {Object.keys(values.build.focus).map((_, i) => (
                   <FocusPoolForm
                     formProps={formProps}
                     index={i}
@@ -54,7 +54,7 @@ const EntitySpellsForm: React.FC<IEntityFormChildrenProps> = ({
               </div>
             </>
           )}
-        </FieldArray> */}
+        </FieldArray>
       </CollapsibleHeader>
       <CollapsibleHeader title="Prepared Spell Pools" toggle nested>
         <FieldArray name="build.spellCasters">

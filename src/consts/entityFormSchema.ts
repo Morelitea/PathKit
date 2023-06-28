@@ -8,7 +8,7 @@ import {
   mixed,
   tuple,
 } from "yup";
-import { PartialEntity } from "../api/model";
+import { Ability, MagicTradition, PartialEntity } from "../api/model";
 import {
   abilities,
   entityTypes,
@@ -16,6 +16,8 @@ import {
   spellcastingTypes,
   magicTraditions,
   traitTypes,
+  magicTraditionOptions,
+  abilityOptions,
 } from "./buildProperties";
 import { diceValueRegex } from "../utilities";
 
@@ -45,6 +47,20 @@ const equipable = array().of(
 const spellLevel = object().shape({
   spellLevel: number(),
   list: array().of(string().defined()),
+});
+
+const magicTraditionAbility = object().shape({
+  abilityBonus: number().default(0),
+  proficiency: number().default(0),
+  itemBonus: number().default(0),
+  focusSpells: array().of(string().default("")).defined().default([]),
+  focusCantrips: array().of(string().default("")).defined().default([]),
+});
+
+const magicTradition = object().shape({
+  [Ability.int]: magicTraditionAbility.default({}),
+  [Ability.wis]: magicTraditionAbility.default({}),
+  [Ability.cha]: magicTraditionAbility.default({}),
 });
 
 const entityFormSchema: ObjectSchema<PartialEntity> = object({
@@ -185,12 +201,13 @@ const entityFormSchema: ObjectSchema<PartialEntity> = object({
       .default(0)
       .min(0)
       .max(3, "Cannot have more than 3 focus points."),
-    focus: object({
-      focusPoints: number().default(0).min(0).max(3, "Cannot have more than 3 focus points"),
-      Focus: object({
-        
-      }),
-    }),
+    focus: object().shape({
+      [MagicTradition.arcane]: magicTradition.default({}),
+      [MagicTradition.divine]: magicTradition.default({}),
+      [MagicTradition.occult]: magicTradition.default({}),
+      [MagicTradition.primal]: magicTradition.default({}),
+    })
+    .default({}),
     spellCasters: array()
       .of(
         object({
@@ -199,7 +216,7 @@ const entityFormSchema: ObjectSchema<PartialEntity> = object({
           spellcastingType: string().oneOf(spellcastingTypes),
           ability: string().oneOf(abilities),
           proficiency: number(),
-          focusPoints: number(),
+          focusPoints: number().default(0).min(0).max(3, "Cannot have more than 3 focus points"),
           spells: array().of(spellLevel),
           perDay: array().of(number().defined()),
         })
