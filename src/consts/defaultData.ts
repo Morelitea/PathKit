@@ -120,10 +120,98 @@ export const defaultEquipment: Equipment = ["", 1, "", 0, "0cp", false];
 
 export const defaultFocusSpellPool: IFocusPool = {
   focusPoints: 0,
-  arcane: {},
-  divine: {},
-  occult: {},
-  primal: {},
+  arcane: {
+    int: {
+      abilityBonus: 0,
+      proficiency: 0,
+      itemBonus: 0,
+      focusSpells: [],
+      focusCantrips: [],
+    },
+    wis: {
+      abilityBonus: 0,
+      proficiency: 0,
+      itemBonus: 0,
+      focusSpells: [],
+      focusCantrips: [],
+    },
+    cha: {
+      abilityBonus: 0,
+      proficiency: 0,
+      itemBonus: 0,
+      focusSpells: [],
+      focusCantrips: [],
+    },
+  },
+  divine: {
+    int: {
+      abilityBonus: 0,
+      proficiency: 0,
+      itemBonus: 0,
+      focusSpells: [],
+      focusCantrips: [],
+    },
+    wis: {
+      abilityBonus: 0,
+      proficiency: 0,
+      itemBonus: 0,
+      focusSpells: [],
+      focusCantrips: [],
+    },
+    cha: {
+      abilityBonus: 0,
+      proficiency: 0,
+      itemBonus: 0,
+      focusSpells: [],
+      focusCantrips: [],
+    },
+  },
+  occult: {
+    int: {
+      abilityBonus: 0,
+      proficiency: 0,
+      itemBonus: 0,
+      focusSpells: [],
+      focusCantrips: [],
+    },
+    wis: {
+      abilityBonus: 0,
+      proficiency: 0,
+      itemBonus: 0,
+      focusSpells: [],
+      focusCantrips: [],
+    },
+    cha: {
+      abilityBonus: 0,
+      proficiency: 0,
+      itemBonus: 0,
+      focusSpells: [],
+      focusCantrips: [],
+    },
+  },
+  primal: {
+    int: {
+      abilityBonus: 0,
+      proficiency: 0,
+      itemBonus: 0,
+      focusSpells: [],
+      focusCantrips: [],
+    },
+    wis: {
+      abilityBonus: 0,
+      proficiency: 0,
+      itemBonus: 0,
+      focusSpells: [],
+      focusCantrips: [],
+    },
+    cha: {
+      abilityBonus: 0,
+      proficiency: 0,
+      itemBonus: 0,
+      focusSpells: [],
+      focusCantrips: [],
+    },
+  },
 }
 
 export const defaultPreparedSpellPool: ISpellPool = {

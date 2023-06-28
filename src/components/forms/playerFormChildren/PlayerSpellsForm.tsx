@@ -9,6 +9,7 @@ import FormButton from "../../formFields/FormButton";
 import {
   defaultPreparedSpellPool,
   defaultSpontaneousSpellPool,
+  defaultFocusSpellPool,
 } from "../../../consts";
 import SpellPoolForm from "./SpellPoolForm";
 import FocusPoolForm from "./SpellPoolForm.Focus";
@@ -46,7 +47,7 @@ const EntitySpellsForm: React.FC<IEntityFormChildrenProps> = ({
                 <FormButton
                   variant="subtle"
                   icon="circle-plus"
-                  onClick={() => push(defaultSpellPool)}
+                  onClick={() => push(defaultFocusSpellPool)}
                 >
                   Add a focus spell pool
                 </FormButton>

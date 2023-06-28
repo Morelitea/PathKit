@@ -72,7 +72,7 @@ export interface IEntityBuild {
   weapons: IEquipable[];
   money: IMoney;
   armor: IEquipable[];
-  focusPoints?: number;
+  focusPoints?: number; //New Pathbuilder format.
   focus: IFocusPool;
   spellCasters: ISpellPool[];
   formula: any[];
@@ -192,7 +192,7 @@ export enum SpellcastingType {
 }
 
 export interface IFocusPool {
-  focusPoints?: number;
+  focusPoints?: number;   //Old Pathbuilder format
   [MagicTradition.arcane]?: TFocusSpells;
   [MagicTradition.divine]?: TFocusSpells;
   [MagicTradition.primal]?: TFocusSpells;

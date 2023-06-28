@@ -37,11 +37,11 @@ const SpellPoolForm: React.FC<IEntityFormChildrenProps> = ({
         <div className={styles.formRow}>
           <FormField label="Magic Tradition" name={`build.spellCasters.${index}.magicTradition`} as="select">
           {magicTraditionOptions.map((o) => (
-                          <option key={o.tag} value={o.tag}>
-                            {o.tag}
-                          </option>
-                        ))}
-            </FormField>
+            <option key={o.tag} value={o.tag}>
+              {o.tag}
+            </option>
+          ))}
+          </FormField>
         </div>
         {/* <div className={styles.formRow}>
           <FormField label="Spellcasting Type" name={`build.spellCasters.${index}.spellcastingType`} as="select">
